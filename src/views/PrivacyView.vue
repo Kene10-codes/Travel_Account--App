@@ -6,9 +6,7 @@
       <h4><a class="text-warning text-uppercase fw-bolder fs-4" href="/">Travel Treasury</a></h4>
       <h2 class="mt-1 text-center">Privacy Policy</h2>
       <p class="mt-3 text-center">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore a nisi dicta distinctio
-        mollitia. Eos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab deleniti iste
-        consectetur molestias laudantium modi quam mollitia nemo voluptate. Culpa.
+        This is the privacy policy page.
       </p>
     </div>
   </main>
