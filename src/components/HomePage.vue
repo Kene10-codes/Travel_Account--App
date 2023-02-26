@@ -1,18 +1,13 @@
-<script>
-// defineProps({
-// title: {
-//   type: String,
-//   required: true
-// }
-// })
+<script setup>
+import AOS from "aos";
+import { onMounted, reactive } from "vue";
 import { Auth } from '@/firebase/auth';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from '@/firebase/app';
 
-export default {
-  data() {
-    return {
+
+const initialValues = reactive({
       title: 'Travel Treasury',
       email: '',
       message: '',
@@ -20,22 +15,21 @@ export default {
       contact_message: '',
       contact_error: '',
       show_contact: true
-    }},
-  methods: {
+})
     // Add email func
-    async addEmail(email) {
+    async function addEmail(email) {
       let noticeMessage = 'You have been added in our wishlist 🏅'
-      await createUserWithEmailAndPassword(Auth, email, this.randomPassword(25)).catch(function (error) {
+      await createUserWithEmailAndPassword(Auth, email, randomPassword(25)).catch(function (error) {
         if (error.code == 'auth/email-already-in-use') {
           noticeMessage = 'Email already in use'
         }
       })
-      this.message = noticeMessage
-      this.email = ''
-    },
+      initialValues.message = noticeMessage
+      initialValues.email = ''
+    }
 
     // Generate random password values
-    randomPassword(length) {
+    function randomPassword(length) {
     let chars = "alksnfwiurg#^@&!(#@!T&@824ry192817griu@!**(!Hwjverwerkwnrweprw@!(*!&@^!Gb43363232f)))";
     let password = "";
     for(let char = 0; char < chars.length; char++) {
@@ -43,28 +37,30 @@ export default {
       password += chars.charAt(i);
     }
     return password;
-    },
+    }
 
     // Send contact details to firebase database
-    async sendContactForm() {
-     if(this.contact_email === '') {
-      this.contact_error = "The email field cannot be empty";
+    async function sendContactForm() {
+     if(initialValues.contact_email === '') {
+      initialValues.contact_error = "The email field cannot be empty";
       return;
-     } else if(this.contact_message === '') {
-      this.contact_error = "The message field cannot be empty";
+     } else if(initialValues.contact_message === '') {
+      initialValues.contact_error = "The message field cannot be empty";
       return;
      }
      await addDoc(collection(db, "contacts"), {
-            contact_email: this.contact_email,
-            contact_message: this.contact_message,
+            contact_email: initialValues.contact_email,
+            contact_message: initialValues.contact_message,
             createdAt: serverTimestamp()
           });
-          this.contact_error = false;
-          this.contact_email = "";
-          this.contact_message = "";
-    },
-  }
-}
+          initialValues.contact_error = false;
+          initialValues.contact_email = "";
+          initialValues.contact_message = "";
+    }
+
+  onMounted(() => {
+    AOS.init();
+})
 </script>
 
 <template>
@@ -72,17 +68,21 @@ export default {
     <div id="home" class="full-height p-4">
       <div class="container">
         <div class="row pb-5">
-          <div class="col-lg-6 pt-4 my-auto text-center">
+          <div class="col-lg-6 pt-4 my-auto text-center"
+           data-aos="slide-left"
+           data-aos-offset="250"
+          data-aos-easing="ease-in-out"
+          >
             <div class="text-center mb-3 d-block d-lg-none">
-              <h1 class="display-3">{{ title }}</h1>
+              <h1 class="display-3">{{ initialValues.title }}</h1>
               <h3>Find the World</h3>
             </div>
-            <img id="phone-img" src="../assets/travelTreasuryiPhone.png" class="img-fluid" />
+            <img  data-aos="fade-up"  id="phone-img" src="../assets/travelTreasuryiPhone.png" class="img-fluid" />
           </div>
 
           <div class="col-lg-6 my-auto pt-4">
             <div class="text-center mb-3 d-none d-lg-block">
-              <h1 class="display-3">{{ title }}</h1>
+              <h1 class="display-3">{{ initialValues.title }}</h1>
               <h3>Find the World</h3>
             </div>
 
@@ -105,7 +105,7 @@ export default {
 
                   <button type="submit" class="btn btn-success mt-3">Join waiting list</button>
                   <div class="mt-4 text-center">
-                    <h5 class="m-0 p-0">{{ message }}</h5>
+                    <h5 class="m-0 p-0">{{ initialValues.message }}</h5>
                   </div>
                 </div>
               </form>
@@ -167,13 +167,13 @@ export default {
     <div id="contact" class="p-4">
       <div class="row justify-content-center mt-3 mb-3">
 
-        <div v-if="show_contact == true" class="col-lg-4">
+        <div v-if="initialValues.show_contact == true" class="col-lg-4">
           <h2 class="text-center">Have Any Questions?</h2>
           <p class="text-center">Wanna get in touch? Fill the form below. Thanks!</p>
 
 
-          <div v-if="contact_error != ''" class="alert alert-warning text-center">
-            There was a problem submitting your message <br /> {{ contact_error }}
+          <div v-if="initialValues.contact_error != ''" class="alert alert-warning text-center">
+            There was a problem submitting your message <br /> {{ initialValues.contact_error }}
           </div>
 
           <form @submit.prevent="sendContactForm()">

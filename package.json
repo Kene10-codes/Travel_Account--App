@@ -10,6 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "bootstrap": "^5.2.3",
     "firebase": "^9.17.1-20230203174750",
     "jquery": "^3.6.3",
