@@ -1,0 +1,18 @@
+@import './base.css';
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+#app {
+  font-weight: normal;
+  font-family: 'Nunito', sans-serif;
+}
+.full-height {
+  min-height: 100vh;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  cursor: pointer;
+}
+@media (min-width: 1024px) {
+}
