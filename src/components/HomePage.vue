@@ -5,6 +5,7 @@ import { Auth } from '@/firebase/auth'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '@/firebase/app'
+import FooterPage from './FooterPage.vue'
 
 const initialValues = reactive({
   title: 'Travel Treasury',
@@ -144,12 +145,12 @@ onMounted(() => {
         </div>
       </div>
     </div>
-
+ 
     <div id="about" class="bg-light p-3 p-md-6">
       <div class="row">
         <div class="col-lg text-center">
           <img src="../components/icons/app.svg" height="150" class="m-4 img" alt="" />
-          <h5 class="ml-md-4 mr-md-4 fs-5">
+          <h5 class="ml-md-4 mr-md-4 fs-6">
             Plan your next adventure by setting a daily spending budget. We make it easy to break
             your expenses down by category, giving you more item to the important things!
           </h5>
@@ -157,15 +158,15 @@ onMounted(() => {
 
         <div class="col-lg text-center">
           <img src="../components/icons/piggy-bank.svg" height="120" class="m-4 img" alt="" />
-          <h5 class="ml-md-4 mr-md-4 fs-5">
+          <h5 class="ml-md-4 mr-md-4 fs-6">
             Plan your next adventure by setting a daily spending budget. We make it easy to break
             your expenses down by category, giving you more item to the important things!
           </h5>
         </div>
 
-        <div class="col-lg text-center fs-5">
+        <div class="col-lg text-center">
           <img src="../components/icons/passport.svg" height="120" class="m-4 img" alt="" />
-          <h5 class="ml-md-4 mr-md-4">
+          <h5 class="ml-md-4 mr-md-4 fs-6">
             Plan your next adventure by setting a daily spending budget. We make it easy to break
             your expenses down by category, giving you more item to the important things!
           </h5>
@@ -214,13 +215,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div id="footer" class="p-4">
-      <footer class="text-light p-4 text-center">
-        <a href="/privacy" class="text-warning">Privacy Policy</a>
-        <br />
-        <small>&copy; Travel Treasury</small>
-      </footer>
-    </div>
+   <FooterPage />
   </div>
 </template>
 
@@ -249,7 +244,5 @@ onMounted(() => {
 #contact {
   background-color: #57aeaf;
 }
-#footer {
-  background-color: #000000;
-}
+
 </style>
